@@ -2,7 +2,6 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QMessageBox
 
-
 def show_error_message(message):
     msg_box = QMessageBox()
     msg_box.setWindowTitle("Error")
