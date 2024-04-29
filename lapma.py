@@ -1,9 +1,10 @@
 # Hàm mã hóa, lập mã Playfair
 def playfair_encrypt(plain_text, key):
+    # Hàm chuyển văn bản thành chữ thường
     def toLowerCase(text):
         return text.lower()
 
-    # Function to remove all spaces in a string
+    # Hàm loại bỏ tất cả các khoảng trắng trong chuỗi
     def removeSpaces(text):
         newText = ""
         for i in text:
@@ -13,8 +14,7 @@ def playfair_encrypt(plain_text, key):
                 newText = newText + i
         return newText
 
-    # Function to group 2 elements of a string
-    # as a list element
+    # Hàm nhóm 2 phần tử của chuỗi thành phần tử danh sách
     def Diagraph(text):
         Diagraph = []
         group = 0
@@ -24,8 +24,7 @@ def playfair_encrypt(plain_text, key):
         Diagraph.append(text[group:])
         return Diagraph
 
-    # Function to fill a letter in a string element
-    # If 2 letters in the same string matches
+    # Hàm điền ký tự vào phần tử chuỗi nếu 2 chữ cái trong cùng một chuỗi trùng nhau
     def FillerLetter(text):
         k = len(text)
         if k % 2 == 0:
@@ -49,7 +48,7 @@ def playfair_encrypt(plain_text, key):
     list1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm',
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-    # Function to generate the 5x5 key square matrix
+    ## Hàm tạo ma trận vuông khóa 5x5
     def generateKeyTable(word, list1):
         key_letters = []
         for i in word:
@@ -71,12 +70,14 @@ def playfair_encrypt(plain_text, key):
 
         return matrix
 
+    # Hàm tìm vị trí của một phần tử trong ma trận
     def search(mat, element):
         for i in range(5):
             for j in range(5):
                 if(mat[i][j] == element):
                     return i, j
 
+    # Hàm thực hiện quy tắc mã hóa theo hàng trong Playfair
     def encrypt_RowRule(matr, e1r, e1c, e2r, e2c):
         char1 = ''
         if e1c == 4:
@@ -92,6 +93,7 @@ def playfair_encrypt(plain_text, key):
 
         return char1, char2
 
+    # Hàm thực hiện quy tắc mã hóa theo cột trong Playfair
     def encrypt_ColumnRule(matr, e1r, e1c, e2r, e2c):
         char1 = ''
         if e1r == 4:
@@ -107,6 +109,7 @@ def playfair_encrypt(plain_text, key):
 
         return char1, char2
 
+    # Hàm thực hiện quy tắc mã hóa theo hình chữ nhật trong Playfair
     def encrypt_RectangleRule(matr, e1r, e1c, e2r, e2c):
         char1 = ''
         char1 = matr[e1r][e2c]
@@ -116,6 +119,7 @@ def playfair_encrypt(plain_text, key):
 
         return char1, char2
 
+    # Hàm thực hiện mã hóa bằng phương pháp Playfair
     def encryptByPlayfairCipher(Matrix, plainList):
         CipherText = []
         for i in range(0, len(plainList)):
@@ -135,16 +139,26 @@ def playfair_encrypt(plain_text, key):
             CipherText.append(cipher)
         return "".join(CipherText)
 
+    # Xóa khoảng trắng và chuyển văn bản thành chữ thường
     text_Plain = removeSpaces(toLowerCase(plain_text))
+    
+    # Chia thành cặp ký tự và thêm 'x' nếu cần
     PlainTextList = Diagraph(FillerLetter(text_Plain))
+    
+    # Nếu số ký tự là lẻ, thêm 'z' vào cuối
     if len(PlainTextList[-1]) != 2:
         PlainTextList[-1] = PlainTextList[-1]+'z'
 
+    # Chuyển khóa thành chữ thường
     key = key.lower()  # Convert key to lowercase
+
+    # Tạo ma trận khóa
     Matrix = generateKeyTable(key, list1)
 
+    # Mã hóa văn bản
     CipherList = encryptByPlayfairCipher(Matrix, PlainTextList)
 
+    # Ghép các ký tự đã mã hóa lại
     CipherText = ""
     for i in CipherList:
         CipherText += i
