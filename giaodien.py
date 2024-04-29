@@ -13,8 +13,7 @@ def show_error_message(message):
 def playfair_encrypt(plain_text, key):
     def toLowerCase(text):
         return text.lower()
-
-    # Function to remove all spaces in a string
+        
     def removeSpaces(text):
         newText = ""
         for i in text:
@@ -24,8 +23,6 @@ def playfair_encrypt(plain_text, key):
                 newText = newText + i
         return newText
 
-    # Function to group 2 elements of a string
-    # as a list element
     def Diagraph(text):
         Diagraph = []
         group = 0
@@ -35,8 +32,6 @@ def playfair_encrypt(plain_text, key):
         Diagraph.append(text[group:])
         return Diagraph
 
-    # Function to fill a letter in a string element
-    # If 2 letters in the same string matches
     def FillerLetter(text):
         k = len(text)
         if k % 2 == 0:
@@ -60,7 +55,6 @@ def playfair_encrypt(plain_text, key):
     list1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm',
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-    # Function to generate the 5x5 key square matrix
     def generateKeyTable(word, list1):
         key_letters = []
         for i in word:
